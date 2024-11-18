@@ -1,33 +1,35 @@
 import RegistrationForm from '../../components/registrationform/RegistrationForm';
-import {useNavigate} from 'react-router-dom'
-import{registerUser} from '../../services/ApiServices'
-function Register (){
+import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../../services/ApiServices';
+import { useState } from 'react';
 
-    const handleLogin = (formData) => {
-        const {username, password} = formData;
-        const [error,setError] = useState(false)
-        const navigate = useNavigate()
-        try{
-            const response = registerUser(username,password)
-            if(response)
-            {
-                navigate("/profile")
-                setError(false)
+function Register() {
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
+
+    const handleRegister = async (formData) => {
+        const { name, email,dob,phone,password,confirmpassword } = formData;
+        console.log(formData);
+        try {
+            const response = await registerUser(name, email,dob,phone,password,confirmpassword);
+            console.log(response);
+            if (response) {
+                navigate("/profile",{ state: { user: response.data } });
+                setError(false);
+            } else {
+                setError(true);
             }
-            else{
-                setError(true)
-            }
-        }
-        catch(error){
-            console.log('Login error',error)
-            setError(true)
+        } catch (error) {
+            console.log("Register error", error);
+            setError(true);
         }
     };
-return(
-    <>
-    <div>hello</div>
-    <RegistrationForm onSubmit={handleLogin}/>
-    </>
-)
+
+    return (
+        <>
+            <RegistrationForm onSubmit={handleRegister} />
+        </>
+    );
 }
-export default Register
+
+export default Register;

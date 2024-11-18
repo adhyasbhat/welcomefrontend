@@ -6,7 +6,7 @@ const baseURL = environment.baseURL
 const apiClient = axios.create({
     baseURL:baseURL,
     timeout: 10000,
-    header:{
+    headers:{
         "Content-Type":"application/json"
     }
 })
@@ -25,7 +25,7 @@ export const loginUser = async (name,password)=>{
 }
  export const registerUser = async (name,email,dob,phone,password,confirmpassword)=>{
     try{
-        const response = await apiClient.post("./register",{
+        const response = await apiClient.post("/register",{
             name,
             email,
             dob,
@@ -33,6 +33,8 @@ export const loginUser = async (name,password)=>{
             password,
             confirmpassword
         })
+        console.log(response)
+        return response.data
     }
     catch(error){
         console.log("Error in register:",error)

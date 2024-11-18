@@ -1,17 +1,19 @@
 import LoginForm from '../../components/loginform/LoginForm'
 import {useNavigate} from 'react-router-dom'
 import {loginUser} from '../../services/ApiServices'
+import { useState } from 'react';
 function Login (){
 
-    const handleLogin = (formData) => {
-        const {name, password} = formData;
-        const [error,setError] = useState(false)
-        const navigate = useNavigate()
+    const [error,setError] = useState(false)
+    const navigate = useNavigate()
+
+    const handleLogin = async (formData) => {
+        const {name,password} = formData
         try{
-            const response = loginUser(name,password)
+            const response = await loginUser(name,password)
             if(response)
             {
-                navigate("/profile")
+                navigate("/profile",{ state: { user: response.data } });
                 setError(false)
             }
             else{
@@ -23,7 +25,8 @@ function Login (){
             setError(true)
         }
     };
-
+return (
     <LoginForm onSubmit={handleLogin}/>
+)
 }
 export default Login

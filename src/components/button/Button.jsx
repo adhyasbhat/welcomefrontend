@@ -1,9 +1,10 @@
-function Button({text,onClick,type="button",classname})
+function Button({children,onClick,type="button",classname})
 {
-    <button
+   return( <button
     type={type}
     onClick={onClick}
     className={classname}
-    >{text}</button>
+    >{children}</button>
+   )
 }
 export default Button

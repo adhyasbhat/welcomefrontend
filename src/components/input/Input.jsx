@@ -1,4 +1,5 @@
 function Input({type,name,placeholder,value,onChange,className}){
+    return (
     <input type={type} 
     name={name} 
     placeholder={placeholder}
@@ -6,5 +7,6 @@ function Input({type,name,placeholder,value,onChange,className}){
     onChange={onChange}
     className={className}
     />
+    )
 }
 export default Input

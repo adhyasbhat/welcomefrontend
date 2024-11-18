@@ -1,13 +1,15 @@
 import Input from '../input/Input';
 import Button from '../button/Button';
+import { useState } from 'react';
 
 function LoginForm({onSubmit}){
     const [name, Setname] = useState("")
-    const [password, Setpassword] = useSate("")
+    const [password, Setpassword] = useState("")
 
     const handleSubmit = (e) =>{
         e.preventDefault();
         const formData = {name,password}
+        console.log(formData)
         onSubmit(formData)
     }
     return(
